@@ -1,2 +1,2 @@
 # contracts-api
-API de gestion de contracts
+API de gestion de contrats
