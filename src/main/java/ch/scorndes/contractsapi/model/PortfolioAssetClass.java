@@ -1,6 +1,8 @@
 package ch.scorndes.contractsapi.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Data;
 
 @Data
@@ -11,15 +13,19 @@ public class PortfolioAssetClass {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "portfolio_id")
+    @JoinColumn(name = "portfolio_id", nullable = false)
+    @NotNull(message = "Le portefeuille est requis")
     private Portfolio portfolio;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "asset_class_id")
+    @JoinColumn(name = "asset_class_id", nullable = false)
+    @NotNull(message = "La classe d'actifs est requise")
     private AssetClass assetClass;
 
-    @Column(name = "percentage", precision = 5, scale = 2)
-    private Double percentage;
+    @Column(name = "percentage", precision = 5, scale = 2, nullable = false)
+    @NotNull(message = "Le pourcentage est requis")
+    @PositiveOrZero(message = "Le pourcentage doit être positif ou zéro")
+    private double percentage;
 
 }
