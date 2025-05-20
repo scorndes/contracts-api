@@ -6,5 +6,5 @@ public record AssetClassDto(
         Integer id,
         String name,
         String category,
-        List<PortfolioAssetClassDto> portfolioAssetClasses
+        List<PortfolioDto> portfolio
 ) {}

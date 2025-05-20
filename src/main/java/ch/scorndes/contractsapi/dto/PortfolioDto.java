@@ -12,5 +12,5 @@ public record PortfolioDto(
         double stocks,
         double bonds,
         LocalDateTime createdAt,
-        List<PortfolioAssetClassDto> portfolioAssetClasses
+        List<AssetClassDto> assetClasses
 ) {}
