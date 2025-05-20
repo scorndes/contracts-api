@@ -6,11 +6,11 @@ import java.util.UUID;
 
 public record PortfolioDto(
         UUID id,
-        UserDto user,
+        UUID userId,
         String name,
         RiskProfileDto riskProfile,
         double stocks,
         double bonds,
         LocalDateTime createdAt,
-        List<AssetClassDto> assetClasses
+        List<Integer> assetClassIds
 ) {}

@@ -20,7 +20,7 @@ public class AssetClass {
     @Column(name = "category")
     private String category;
 
-    @OneToMany(mappedBy = "assetClass")
+    @OneToMany(mappedBy = "assetClass", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PortfolioAssetClass> portfolioAssetClasses;
 
 }

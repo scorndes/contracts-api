@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "portfolios")
-public class Portefolio {
+public class Portfolio {
 
     @Id
     private UUID id;
@@ -33,7 +33,7 @@ public class Portefolio {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = "portfolio")
+    @OneToMany(mappedBy = "portfolio", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PortfolioAssetClass> portfolioAssetClasses;
 
 }

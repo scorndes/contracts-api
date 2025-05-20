@@ -6,8 +6,6 @@ import java.util.UUID;
 public record UserDto (
     UUID id,
     String username,
-    String password,
     String email,
-    List<AddressDto> addresses,
-    List<PortfolioDto> portfolios
+    List<AddressDto> addresses
 ){}

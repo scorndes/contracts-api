@@ -12,7 +12,7 @@ public class PortfolioAssetClass {
     @Id
     @ManyToOne
     @JoinColumn(name = "portfolio_id")
-    private Portefolio portefolio;
+    private Portfolio portfolio;
 
     @Id
     @ManyToOne
