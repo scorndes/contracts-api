@@ -2,6 +2,8 @@ package ch.scorndes.contractsapi.controller;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -19,11 +21,19 @@ import java.util.Date;
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
-    private final Key secretKey = Keys.hmacShaKeyFor("my-very-secure-secret-key-32-bytes-long".getBytes());
+    private Key secretKey;
     private static final long EXPIRATION_TIME = 86400000;
+
+    @Value("${jwt.secret}")
+    private String secret;
 
     public AuthController(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
+    }
+
+    @PostConstruct
+    public void initKey() {
+        this.secretKey = Keys.hmacShaKeyFor(secret.getBytes());
     }
 
     @PostMapping("/login")

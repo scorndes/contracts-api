@@ -8,7 +8,7 @@ import jakarta.validation.constraints.Size;
 import java.util.List;
 import java.util.UUID;
 
-public record AssetClassDto(
+public record AssetClassWithPortfoliosDto(
         Integer id,
 
         @NotNull(message = "Le nom est requis")
@@ -22,5 +22,8 @@ public record AssetClassDto(
         @Column(precision = 5, scale = 2, nullable = false)
         @NotNull(message = "La part des assets est requise")
         @PositiveOrZero(message = "La part des assets doit être positive ou zéro")
-        double percentage
+        double percentage,
+
+        @Size(max = 50, message = "La liste des portefeuilles ne doit pas contenir plus de 50 éléments")
+        List<UUID> portfolioIds
 ) {}

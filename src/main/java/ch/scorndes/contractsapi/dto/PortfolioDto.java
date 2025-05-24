@@ -36,5 +36,5 @@ public record PortfolioDto(
         LocalDateTime createdAt,
 
         @Size(max = 50, message = "La liste des classes d'actifs ne doit pas contenir plus de 50 éléments")
-        List<Integer> assetClassIds
+        List<AssetClassDto> assetClass
 ) {}
