@@ -10,5 +10,6 @@ import java.util.UUID;
 public interface PortfolioRepositoryCustom {
 
     List<Portfolio> findByUserId(UUID userId);
+    boolean isPortfolioWithId(UUID id);
 
 }

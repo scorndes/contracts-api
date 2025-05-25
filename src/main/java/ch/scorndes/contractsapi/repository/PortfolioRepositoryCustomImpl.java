@@ -19,4 +19,11 @@ public class PortfolioRepositoryCustomImpl implements PortfolioRepositoryCustom 
                 .getResultList();
     }
 
+    public boolean isPortfolioWithId(UUID id) {
+        String query ="SELECT COUNT(p) > 0 FROM Portfolio p WHERE p.id = :id";
+        return entityManager.createQuery(query, Boolean.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
 }
