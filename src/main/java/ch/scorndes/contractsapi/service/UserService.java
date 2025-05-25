@@ -1,27 +1,10 @@
 package ch.scorndes.contractsapi.service;
 
 import ch.scorndes.contractsapi.dto.UserDto;
-import ch.scorndes.contractsapi.mapper.UserMapper;
-import ch.scorndes.contractsapi.repository.AddressRepository;
-import ch.scorndes.contractsapi.repository.UserRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
 
-@Service
-public class UserService {
-
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
-
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
-
-    public Optional<UserDto> getUserWithMainAddress(UUID userId) {
-        return this.userRepository.findByIdWithMainAdresses(userId).map(userMapper::toDto);
-    }
-
+public interface UserService {
+    Optional<UserDto> getUserWithMainAddress(UUID userId);
 }

@@ -15,7 +15,7 @@ public class AddressRepositoryCustomImpl implements AddressRepositoryCustom {
     private EntityManager entityManager;
 
     public List<Address> findByUserId(UUID uuid) {
-        String query = "SELECT a FROM Address a JOIN a.user u WHERE u.id = :userId";
+        String query = "SELECT a FROM Address a JOIN a.user u WHERE u.id = :userId ORDER BY a.principale DESC";
         return entityManager.createQuery(query, Address.class)
                 .setParameter("userId", uuid)
                 .getResultList();
