@@ -19,11 +19,6 @@ public record AssetClassWithPortfoliosDto(
         @Size(max = 50, message = "La catégorie ne doit pas dépasser 50 caractères")
         String category,
 
-        @Column(precision = 5, scale = 2, nullable = false)
-        @NotNull(message = "La part des assets est requise")
-        @PositiveOrZero(message = "La part des assets doit être positive ou zéro")
-        double percentage,
-
         @Size(max = 50, message = "La liste des portefeuilles ne doit pas contenir plus de 50 éléments")
         List<UUID> portfolioIds
 ) {}
