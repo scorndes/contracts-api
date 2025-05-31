@@ -1,5 +1,6 @@
-package ch.scorndes.contractsapi.config;
+package ch.scorndes.contractsapi.security;
 
+import ch.scorndes.contractsapi.model.User;
 import ch.scorndes.contractsapi.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,7 +18,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username)
+        User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Utilisateur non trouvé : " + username));
+        return new UserDetailsImpl(user);
     }
 }

@@ -27,7 +27,7 @@ public record UserDto (
         String birthname,
 
         @NotNull(message = "La date de naissance est requise")
-        LocalDateTime createdAt,
+        LocalDateTime birthdate,
 
         @NotNull(message = "L'email est requis")
         @Email(message = "L'email doit être valide")

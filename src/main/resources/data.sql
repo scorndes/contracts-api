@@ -4,7 +4,7 @@ INSERT INTO
 SELECT
     '00000000-0000-0000-0000-000000000001',
     'admin',
-    '$2a$10$VtYACeU/5rTL3sXtaXgWZey1WGL5sOSxD7lG.F4RAqgAsShMjQg.C',
+    '$2a$10$pV0kWcVDynqKE6EE7arNjOmSI2uT/syAILwBovhkgvv/R9GCdW/pK',
     'administrateur',
     'root',
     null,

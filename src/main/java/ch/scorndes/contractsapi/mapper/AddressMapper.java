@@ -35,7 +35,11 @@ public interface AddressMapper extends UserIdMapperSupport {
         address.setCodePostal(dto.codePostal());
         address.setVille(dto.ville());
         address.setPays(dto.pays());
-        // user à injecter côté service (ou fais-le ici si tu veux un User minimal)
+        if (dto.userId() != null) {
+            User user = new User();
+            user.setId(dto.userId());
+            address.setUser(user);
+        }
         return address;
     }
 

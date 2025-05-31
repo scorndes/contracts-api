@@ -10,12 +10,15 @@ import org.mapstruct.Named;
 import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", unmappedSourcePolicy = ReportingPolicy.IGNORE, uses = {AddressMapper.class})
 public interface UserMapper {
 
+    @Mapping(target = "addresses", source = "addresses")
     UserDto toDto(User user);
 
+    @Mapping(target = "addresses", source = "addresses")
     User toModel(UserDto userDto);
 
 }
