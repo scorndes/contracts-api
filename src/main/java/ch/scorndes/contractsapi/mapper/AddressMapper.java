@@ -11,10 +11,32 @@ import java.util.UUID;
 @Mapper(componentModel = "spring")
 public interface AddressMapper extends UserIdMapperSupport {
 
-    @Mapping(target = "userId", source = "user.id")
-    AddressDto toDto(Address adress);
+    default AddressDto toDto(Address address) {
+        return new AddressDto(
+                address.getId(),
+                address.isPrincipale(),
+                address.getUser() != null ? address.getUser().getId() : null,
+                address.getNumero(),
+                address.getLigne1(),
+                address.getLigne2(),
+                address.getCodePostal(),
+                address.getVille(),
+                address.getPays()
+        );
+    }
 
-    @Mapping(target = "user", source = "userId")
-    Address toModel(AddressDto adressDto);
+    default Address toModel(AddressDto dto) {
+        Address address = new Address();
+        address.setId(dto.id());
+        address.setPrincipale(dto.principale());
+        address.setNumero(dto.numero());
+        address.setLigne1(dto.ligne1());
+        address.setLigne2(dto.ligne2());
+        address.setCodePostal(dto.codePostal());
+        address.setVille(dto.ville());
+        address.setPays(dto.pays());
+        // user à injecter côté service (ou fais-le ici si tu veux un User minimal)
+        return address;
+    }
 
 }

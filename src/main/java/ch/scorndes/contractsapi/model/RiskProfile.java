@@ -20,7 +20,7 @@ public class RiskProfile {
     @Size(max = 50, message = "Le nom ne doit pas dépasser 50 caractères")
     private String name;
 
-    @Column(name = "min_bonds", precision = 5, scale = 2, nullable = false)
+    @Column(name = "min_bonds", nullable = false)
     @NotNull(message = "Le minimum d'obligations est requis")
     @PositiveOrZero(message = "Le minimum d'obligations doit être positif ou zéro")
     private double minBonds;

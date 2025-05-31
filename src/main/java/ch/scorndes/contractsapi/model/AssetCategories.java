@@ -5,12 +5,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 @Entity
-@Table(name = "asset_classes")
-public class AssetClass {
+@Table(name = "asset_categories")
+public class AssetCategories {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,13 +18,5 @@ public class AssetClass {
     @NotNull(message = "Le nom est requis")
     @Size(max = 50, message = "Le nom ne doit pas dépasser 50 caractères")
     private String name;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    @NotNull(message = "La catégorie d'asset est requise")
-    private AssetCategories category;
-
-    @OneToMany(mappedBy = "assetClass", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PortfolioAssetClass> portfolioAssetClasses;
 
 }

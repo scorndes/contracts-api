@@ -13,15 +13,44 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring", uses = {RiskProfileMapper.class, AssetClassMapper.class})
-public interface PortfolioMapper extends UserIdMapperSupport {
+public interface PortfolioMapper extends UserIdMapperSupport, AssetClassMappingSupport {
 
-    @Mapping(target = "userId", source = "user.id")
-    @Mapping(target = "assetClass", expression = "java(mapAssetClasses(portfolio))")
-    PortfolioDto toDto(Portfolio portfolio);
+    default PortfolioDto toDto(Portfolio portfolio) {
+        return new PortfolioDto(
+                portfolio.getId(),
+                portfolio.getUser() != null ? portfolio.getUser().getId() : null,
+                portfolio.getName(),
+                mapRiskProfile(portfolio.getRiskProfile()),
+                portfolio.getStocks(),
+                portfolio.getBonds(),
+                portfolio.getCreatedAt(),
+                mapAssetClasses(portfolio)
+        );
+    }
 
-    @Mapping(target = "user", source = "userId")
-    @Mapping(target = "portfolioAssetClasses", expression = "java(mapPortfolioAssetClass(portfolioDto))")
-    Portfolio toModel(PortfolioDto portfolioDto);
+    default RiskProfileDto mapRiskProfile(RiskProfile riskProfile) {
+        if (riskProfile == null) return null;
+        return new RiskProfileDto(riskProfile.getId(), riskProfile.getName(), riskProfile.getMinBonds());
+    }
+
+    default Portfolio toModel(PortfolioDto dto) {
+        Portfolio portfolio = new Portfolio();
+        portfolio.setId(dto.id());
+        portfolio.setName(dto.name());
+        portfolio.setStocks(dto.stocks());
+        portfolio.setBonds(dto.bonds());
+        portfolio.setCreatedAt(dto.createdAt());
+
+        if (dto.riskProfile() != null) {
+            RiskProfile rp = new RiskProfile();
+            rp.setId(dto.riskProfile().id());
+            portfolio.setRiskProfile(rp);
+        }
+
+        portfolio.setPortfolioAssetClasses(mapPortfolioAssetClass(dto));
+        // user à injecter côté service
+        return portfolio;
+    }
 
     default List<PortfolioAssetClass> mapPortfolioAssetClass(PortfolioDto dto) {
         Portfolio portfolio = new Portfolio();
@@ -45,7 +74,5 @@ public interface PortfolioMapper extends UserIdMapperSupport {
                 .map(pac -> toDtoForPortfolio(pac.getAssetClass(), portfolio.getId()))
                 .toList();
     }
-
-    AssetClassDto toDtoForPortfolio(AssetClass assetClass, UUID portfolioId);
 
 }

@@ -1,6 +1,7 @@
 package ch.scorndes.contractsapi.controller;
 
 import ch.scorndes.contractsapi.dto.PortfolioDto;
+import ch.scorndes.contractsapi.model.Portfolio;
 import ch.scorndes.contractsapi.service.PortfolioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -33,12 +33,12 @@ public class Portfolio {
     @NotNull(message = "Le profil de risque est requis")
     private RiskProfile riskProfile;
 
-    @Column(precision = 5, scale = 2, nullable = false)
+    @Column(name = "stocks", nullable = false)
     @NotNull(message = "La part des actions est requise")
     @PositiveOrZero(message = "La part des actions doit être positive ou zéro")
     private double stocks;
 
-    @Column(precision = 5, scale = 2, nullable = false)
+    @Column(name = "bonds", nullable = false)
     @NotNull(message = "La part des obligations est requise")
     @PositiveOrZero(message = "La part des obligations doit être positive ou zéro")
     private double bonds;

@@ -9,15 +9,15 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public class UserRepositoryCustomImpl implements UserRepositoryCustom {
+public class UserRepositoryImpl implements UserRepositoryCustom {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
     public Optional<User> findByIdWithMainAdresses(UUID userId) {
-        String query = "SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.addresses a WHERE u.id = :userId AND a.principale = true";
-        return entityManager.createQuery(query, User.class)
+        String jpqlQuery = "SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.addresses a WHERE u.id = :userId AND a.principale = true";
+        return entityManager.createQuery(jpqlQuery, User.class)
                 .setParameter("userId", userId)
                 .getResultStream()
                 .findFirst();

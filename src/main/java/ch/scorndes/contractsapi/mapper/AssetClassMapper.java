@@ -2,8 +2,8 @@ package ch.scorndes.contractsapi.mapper;
 
 import ch.scorndes.contractsapi.dto.AssetClassDto;
 import ch.scorndes.contractsapi.dto.AssetClassWithPortfoliosDto;
+import ch.scorndes.contractsapi.model.AssetCategories;
 import ch.scorndes.contractsapi.model.AssetClass;
-import ch.scorndes.contractsapi.model.Portfolio;
 import ch.scorndes.contractsapi.model.PortfolioAssetClass;
 import org.mapstruct.Mapper;
 
@@ -11,22 +11,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Mapper(componentModel = "spring")
-public interface AssetClassMapper {
-
-    default AssetClassDto toDtoForPortfolio(AssetClass assetClass, UUID portfolioId) {
-        double percentage = assetClass.getPortfolioAssetClasses().stream()
-                .filter(pac -> pac.getPortfolio().getId().equals(portfolioId))
-                .map(PortfolioAssetClass::getPercentage)
-                .findFirst()
-                .orElse(0.0);
-
-        return new AssetClassDto(
-                assetClass.getId(),
-                assetClass.getName(),
-                assetClass.getCategory(),
-                percentage
-        );
-    }
+public interface AssetClassMapper extends AssetClassMappingSupport{
 
     default AssetClassWithPortfoliosDto toDtoWithPortfolios(AssetClass assetClass) {
         List<UUID> portfolioIds = assetClass.getPortfolioAssetClasses().stream()
@@ -37,8 +22,13 @@ public interface AssetClassMapper {
         return new AssetClassWithPortfoliosDto(
                 assetClass.getId(),
                 assetClass.getName(),
-                assetClass.getCategory(),
+                assetClass.getCategory() != null ? assetClass.getCategory().getName() : null,
                 portfolioIds
         );
     }
+
+    default String map(AssetCategories category) {
+        return category != null ? category.getName() : null;
+    }
+
 }
